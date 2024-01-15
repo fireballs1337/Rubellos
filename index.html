@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Output</title>
+</head>
+<body>
+<H1> 50 Rubbellose Simulator für Christa </h1>
+
+<!-- HTML label for output -->
+<label id="outputLabel"></label>
+
+<script>
+
+
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+// Create dataArray
+var dataArray = [
+    { chance: 7, preis: 75000 },
+    { chance: 15, preis: 10000 },
+    { chance: 50, preis: 5000 },
+    { chance: 150, preis: 1000 },
+    { chance: 750, preis: 500 },
+    { chance: 2000, preis: 100 },
+    { chance: 50000, preis: 12 },
+    { chance: 125000, preis: 9 },
+    { chance: 437500, preis: 6 },
+    { chance: 1050000, preis: 3 }
+];
+
+var maxpricepool = dataArray.length;
+// Create intArray filled with zeros
+var intArray = [];
+var maxTickets = 5000000;
+console.log("testt");
+
+for (var i = 1; i <= maxTickets; i++) {
+    intArray.push(0);
+}
+console.log("Rubbellose erstellt");
+
+var k = 1;
+var k_chance = 0;
+var win = getRandomInt(1,maxTickets);
+
+
+for (i = 1; i <= maxpricepool ;i++)
+{
+	k = 1;
+	k_chance = dataArray[i-1].chance;
+	console.log(k_chance);
+
+	//
+	//while (k == k_chance)
+	while (k <= k_chance)
+	{
+		win = getRandomInt(1,maxTickets);
+		//console.log(win);
+		if (intArray[win] === 0) {
+		    intArray[win] = dataArray[i-1].preis;
+			k = k + 1;
+			//if (k > k_chance) {k = 1; break; }
+
+
+
+		} else {
+		   //var win = getRandomInt(1,maxTickets);
+		}
+
+
+
+	}//while
+
+} //for
+
+// Get the HTML label element
+var outputLabel = document.getElementById("outputLabel");
+
+// Displaying some values from dataArray and intArray
+//outputLabel.innerHTML = "First entry from dataArray: " + JSON.stringify(dataArray[0]) + "<br>";
+outputLabel.innerHTML += "Deine 50 Rubbellose " + JSON.stringify(intArray.slice(0, 50)) + "<br>";
+var totalwin = 0;
+
+for (i = 1; i <= 50 ;i++)
+{
+  totalwin = totalwin + intArray[i];
+}
+
+outputLabel.innerHTML += "Du hast 150 Euro ausgegeben und: " + totalwin + " gewonnen. <br>";
+
+//outputLabel.innerHTML += "Length of dataArray: " + maxpricepool;
+</script>
+
+</body>
+</html>
